@@ -1,10 +1,11 @@
-import httpx
 import re
+
+import httpx
 from pydantic import ValidationError
 
 from app.models import EvaluationResult
-from app.prompts import build_evaluation_prompt
 from app.observability import observe_execution
+from app.prompts import build_evaluation_prompt
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL_NAME = "qwen2.5:7b-instruct"
@@ -17,6 +18,7 @@ def _clean_model_output(text: str) -> str:
         return fenced.group(1).strip()
 
     return text.strip()
+
 
 @observe_execution()
 def evaluate_with_llm(text: str) -> EvaluationResult:

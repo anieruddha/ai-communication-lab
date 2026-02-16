@@ -4,6 +4,7 @@ from functools import wraps
 
 try:
     import logfire
+
     logfire.configure(service_name="ai-communication-lab")
     _LOGGING_ENABLED = True
 except ImportError:
@@ -18,6 +19,7 @@ class ObservationContext:
         for k, v in kwargs.items():
             if v is not None:
                 self.metadata[k] = v
+
 
 def observe_execution():
     def decorator(func):
@@ -48,7 +50,9 @@ def observe_execution():
                 raise
 
         return wrapper
+
     return decorator
+
 
 def _safe_argument_metadata(func, args, kwargs):
     """

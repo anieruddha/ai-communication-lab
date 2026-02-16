@@ -1,3 +1,7 @@
+import os
+import uuid
+from datetime import datetime
+
 from sqlalchemy import (
     create_engine,
     Column,
@@ -6,8 +10,7 @@ from sqlalchemy import (
     Float,
 )
 from sqlalchemy.orm import declarative_base, sessionmaker
-from datetime import datetime
-import uuid, os
+
 from app.models import EvaluationResult
 from app.scoring import compute_weighted_score
 
@@ -41,9 +44,10 @@ def init_db(custom_engine=None):
     target_engine = custom_engine or engine
     Base.metadata.create_all(bind=target_engine)
 
+
 def save_evaluation(
-    input_text: str,
-    evaluation: EvaluationResult,
+        input_text: str,
+        evaluation: EvaluationResult,
 ) -> str:
     session = SessionLocal()
     try:

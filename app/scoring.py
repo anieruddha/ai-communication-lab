@@ -1,5 +1,6 @@
 from typing import Dict
 from typing import List
+
 from app.models import DimensionScore
 
 PROFESSIONAL_WEIGHTS: Dict[str, float] = {
@@ -37,21 +38,23 @@ def get_weights_for_mode(mode: str) -> Dict[str, float]:
     else:
         raise ValueError(f"Unknown mode: {mode}")
 
+
 def validate_weights(weights: Dict[str, float]) -> None:
     total = sum(weights.values())
     if round(total, 5) != 1.0:
         raise ValueError(f"Weights must sum to 1.0, got {total}")
 
+
 for weight_map in (
-    PROFESSIONAL_WEIGHTS,
-    TECHNICAL_WEIGHTS,
-    CLARITY_WEIGHTS,
+        PROFESSIONAL_WEIGHTS,
+        TECHNICAL_WEIGHTS,
+        CLARITY_WEIGHTS,
 ): validate_weights(weight_map)
 
 
 def compute_weighted_score(
-    mode: str,
-    dimensions: List[DimensionScore],
+        mode: str,
+        dimensions: List[DimensionScore],
 ) -> float:
     weights = get_weights_for_mode(mode)
 
