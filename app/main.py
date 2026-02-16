@@ -1,9 +1,5 @@
 from app.llm_engine import evaluate_with_llm
-from app.observability import observe_execution
 from app.storage import init_db, save_evaluation
-
-observe_execution()
-
 
 def run_llm_pipeline(text: str):
     result = evaluate_with_llm(text)
